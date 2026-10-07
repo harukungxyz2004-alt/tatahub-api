@@ -38,7 +38,7 @@ const SCRIPT_GROUPS = [
             "424CeBuk": { hwid: null },
             "uh2Cf23b": { hwid: null }
         },
-        url: "wait"
+        url: "https://gist.githubusercontent.com/harukungxyz2004-alt/f982a1f11ccc426e2be4827341ef95fe/raw/704efbb7197dd25a565999700cfb8b4ec9e8facd/main_script.lua"
     }
 ];
 
