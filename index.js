@@ -14,7 +14,7 @@ const VALID_KEYS = [
 ];
 
 // ลิงก์ Raw สคริปต์หลักจาก GitHub Gist ของคุณ
-const RAW_SCRIPT_URL = "https://gist.githubusercontent.com/harukungxyz2004-alt/9b9762268c53693c70b5a25f56c09036/raw/fce7ac4131e20c5f59078c95a8b27f3c406fddad/main_script.lua";
+const RAW_SCRIPT_URL = "https://gist.githubusercontent.com/harukungxyz2004-alt/824502c79cf11740727142e1ce9c99ed/raw/5698e96067607b8362ce37331848ba1e84c80587/main_script.lua";
 
 app.get('/get_script', async (req, res) => {
     const userKey = req.query.script_key;
