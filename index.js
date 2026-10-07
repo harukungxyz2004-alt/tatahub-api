@@ -11,7 +11,7 @@ const SCRIPT_GROUPS = [
     {
         // กลุ่มที่ 1 (10 Key แรก)
         keys: {
-            "5wZWcwn5": { hwid: null },
+            "rPT9WPTu": { hwid: null },
             "sEVe64Lf": { hwid: null },
             "5fP23HzN": { hwid: null },
             "pMkDdK5d": { hwid: null },
