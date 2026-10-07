@@ -12,45 +12,46 @@ const SCRIPT_KEYS = {
     "tatahubantfree": "https://gist.githubusercontent.com/harukungxyz2004-alt/f982a1f11ccc426e2be4827341ef95fe/raw/704efbb7197dd25a565999700cfb8b4ec9e8facd/main_script.lua"
 };
 
-// 2. Endpoint สำหรับแจกตัว Loader
+// 2. Endpoint สำหรับแจกตัว Loader (ดักไม่ให้เปิดผ่านเบราว์เซอร์ + ไม่แสดงข้อความแจ้งเตือน)
 app.get('/loader.lua', (req, res) => {
+    const userAgent = req.headers['user-agent'] || '';
+
+    // บล็อกถ้าเปิดจากเว็บเบราว์เซอร์ทั่วไป
+    if (!userAgent.includes('Roblox') && !userAgent.includes('ROBLOX')) {
+        return res.status(403).send("Access Denied");
+    }
+
     const loaderCode = `
 local userKey = script_key or ""
 local apiUrl = "https://tatahub-api.onrender.com/get_script?script_key=" .. tostring(userKey)
-
-print("1. กำลังตรวจสอบ Key...")
 
 local success, response = pcall(function()
     return game:HttpGet(apiUrl)
 end)
 
-if not success then
-    warn("❌ ไม่สามารถเชื่อมต่อ Render API ได้!")
-    return
-end
-
-if response and #response > 0 then
-    local func, err = loadstring(response)
+if success and response and #response > 0 then
+    local func = loadstring(response)
     if func then
-        print("2. ยืนยันสิทธิ์สำเร็จ! กำลังเริ่มรันสคริปต์...")
         func()
-    else
-        warn("❌ เกิด Syntax Error ในสคริปต์: " .. tostring(err))
     end
-else
-    warn("❌ ไม่พบข้อมูลตอบกลับจาก API")
 end
     `;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    return res.status(200).send(loaderCode);
+    return res.status(200).send(loaderCode.trim());
 });
 
-// 3. Endpoint ตรวจสอบ Key และส่งคืนสคริปต์หลัก
+// 3. Endpoint ตรวจสอบ Key และส่งคืนสคริปต์หลัก (ดักจับป้องกันการเข้าผ่านเบราว์เซอร์)
 app.get('/get_script', async (req, res) => {
     const userKey = req.query.script_key;
+    const userAgent = req.headers['user-agent'] || '';
+
+    // 🛑 บล็อกการเข้าผ่านเบราว์เซอร์ทั่วไป (Chrome, Edge, Safari ฯลฯ)
+    if (!userAgent.includes('Roblox') && !userAgent.includes('ROBLOX')) {
+        return res.status(403).send("Access Denied");
+    }
 
     if (!userKey) {
-        return res.status(400).send("warn('❌ กรุณาใส่ script_key ในการเรียกใช้งาน')");
+        return res.status(400).send("");
     }
 
     const scriptUrl = SCRIPT_KEYS[userKey];
@@ -61,12 +62,12 @@ app.get('/get_script', async (req, res) => {
             res.setHeader('Content-Type', 'text/plain; charset=utf-8');
             return res.status(200).send(response.data);
         } catch (error) {
-            return res.status(500).send("warn('❌ เกิดข้อผิดพลาดในการดึงสคริปต์หลักจาก GitHub Gist')");
+            return res.status(500).send("");
         }
     }
 
-    return res.status(403).send("warn('❌ Key ไม่ถูกต้อง หรือ Key หมดอายุ!')");
+    return res.status(403).send("");
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT,
