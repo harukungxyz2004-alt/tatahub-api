@@ -11,7 +11,7 @@ const SCRIPT_GROUPS = [
     {
         // กลุ่มที่ 1 (10 Key แรก)
         keys: {
-            "HxLE9vKk": { hwid: null },
+            "5wZWcwn5": { hwid: null },
             "sEVe64Lf": { hwid: null },
             "5fP23HzN": { hwid: null },
             "pMkDdK5d": { hwid: null },
@@ -22,7 +22,7 @@ const SCRIPT_GROUPS = [
             "hbKR8Zsr": { hwid: null },
             "wZu7zgA7": { hwid: null }
         },
-        url: "https://gist.githubusercontent.com/harukungxyz2004-alt/247e1a1929a3dd501f0baaa1ec7802e2/raw/main_script.lua"
+        url: "https://gist.githubusercontent.com/harukungxyz2004-alt/d5486ef28fc2e5f6036ad7f720f01c14/raw/5ef916a901dbf2d69c24c99beb6761acf5f03a68/main_script.lua"
     },
     {
         // กลุ่มที่ 2 (10 Key หลัง)
@@ -38,7 +38,7 @@ const SCRIPT_GROUPS = [
             "424CeBuk": { hwid: null },
             "uh2Cf23b": { hwid: null }
         },
-        url: "https://gist.githubusercontent.com/harukungxyz2004-alt/afbaaad08488041fc9aee9e7ddb30d10/raw/main_script.lua"
+        url: "wait"
     }
 ];
 
