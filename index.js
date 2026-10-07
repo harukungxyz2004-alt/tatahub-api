@@ -6,36 +6,37 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 1. จัดกลุ่ม Key และผูกกับ URL สคริปต์
+// 1. จัดกลุ่ม Key และผูกกับ URL สคริปต์ (กลุ่มละ 10 Key)
 const SCRIPT_GROUPS = [
     {
-        // กลุ่มที่ 1: สคริปต์หลัก / Hub รวม
+        // กลุ่มที่ 1 (10 Key แรก)
         keys: [
-            "KEY_1",
-            "KEY_2",
-            "KEY_3",
-            "KEY_4",
-            "KEY_5",
-            "KEY_6",
-            "KEY_7",
-            "KEY_8",
-            "KEY_9"
+            "HxLE9vKk",
+            "sEVe64Lf",
+            "5fP23HzN",
+            "pMkDdK5d",
+            "DAwU643c",
+            "WQzcp7bB",
+            "ZW4ULRa2",
+            "QWkU3tf9",
+            "hbKR8Zsr",
+            "wZu7zgA7"
         ],
         url: "https://gist.githubusercontent.com/harukungxyz2004-alt/247e1a1929a3dd501f0baaa1ec7802e2/raw/main_script.lua"
     },
     {
-        // กลุ่มที่ 2: สคริปต์เสกอาวุธ
+        // กลุ่มที่ 2 (10 Key หลัง)
         keys: [
-            "KEY_10",
-            "KEY_11",
-            "KEY_12",
-            "KEY_13",
-            "KEY_14",
-            "KEY_15",
-            "KEY_16",
-            "KEY_17",
-            "KEY_18",
-            "KEY_19"
+            "Cf5TcNQU",
+            "nrKpk3GG",
+            "s888yfWH",
+            "8p8DyTEg",
+            "9VT9EXCw",
+            "KYRS5dAY",
+            "2z7rXwAf",
+            "GB88YGYm",
+            "424CeBuk",
+            "uh2Cf23b"
         ],
         url: "https://gist.githubusercontent.com/harukungxyz2004-alt/afbaaad08488041fc9aee9e7ddb30d10/raw/main_script.lua"
     }
@@ -86,7 +87,7 @@ end
     return res.status(200).send(loaderCode);
 });
 
-// 3. Endpoint สำหรับเช็ค Key และส่งสคริปต์กลับ
+// 3. Endpoint ตรวจสอบ Key และส่งสคริปต์กลับ
 app.get('/get_script', async (req, res) => {
     const userKey = req.query.script_key;
     const targetUrl = getScriptUrlByKey(userKey);
