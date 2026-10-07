@@ -8,8 +8,8 @@ app.use(express.json());
 
 // โครงสร้างข้อมูล Key และ URL
 const SCRIPT_KEYS = {
-    "tatahublootfree": "https://gist.githubusercontent.com/harukungxyz2004-alt/d5486ef28fc2e5f6036ad7f720f01c14/raw/5ef916a901dbf2d69c24c99beb6761acf5f03a68/main_script.lua",
-    "tatahubantfree": "https://gist.githubusercontent.com/harukungxyz2004-alt/f982a1f11ccc426e2be4827341ef95fe/raw/704efbb7197dd25a565999700cfb8b4ec9e8facd/main_script.lua"
+    "tatahublootfree": "https://gist.githubusercontent.com/harukungxyz2004-alt/a6088e51a4ebbbfee2d99a8b49f6592a/raw/953a75b2361c85fc96efd0f6df5bcaf3f42a39be/main_script.lua",
+    "tatahubantfree": "https://gist.githubusercontent.com/harukungxyz2004-alt/658495f079b4fbbe4b66e3b8705fa920/raw/28192bc8d58bca12beaea97ea9430edf8a325008/main_script.lua"
 };
 
 // Endpoint สำหรับ Loader
