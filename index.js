@@ -6,17 +6,52 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 1. รายการ Key ที่อนุญาตใช้งาน (แก้ไข/เพิ่ม/ลด ตรงนี้ได้ตามปกติ)
-const VALID_KEYS = [
-    "VIP_KEY_1234",
-    "SPEED_HUB_8888",
-    "MY_SECRET_KEY"
+// 1. จัดกลุ่ม Key และผูกกับ URL สคริปต์
+const SCRIPT_GROUPS = [
+    {
+        // กลุ่มที่ 1: สคริปต์หลัก / Hub รวม
+        keys: [
+            "KEY_1",
+            "KEY_2",
+            "KEY_3",
+            "KEY_4",
+            "KEY_5",
+            "KEY_6",
+            "KEY_7",
+            "KEY_8",
+            "KEY_9"
+        ],
+        url: "https://gist.githubusercontent.com/harukungxyz2004-alt/247e1a1929a3dd501f0baaa1ec7802e2/raw/main_script.lua"
+    },
+    {
+        // กลุ่มที่ 2: สคริปต์เสกอาวุธ
+        keys: [
+            "KEY_10",
+            "KEY_11",
+            "KEY_12",
+            "KEY_13",
+            "KEY_14",
+            "KEY_15",
+            "KEY_16",
+            "KEY_17",
+            "KEY_18",
+            "KEY_19"
+        ],
+        url: "https://gist.githubusercontent.com/harukungxyz2004-alt/afbaaad08488041fc9aee9e7ddb30d10/raw/main_script.lua"
+    }
 ];
 
-// 2. ลิงก์ Raw สคริปต์หลักจาก GitHub Gist (ใช้แบบไม่ติด Hash ยาวๆ เพื่อให้อัปเดต Real-time)
-const RAW_SCRIPT_URL = "https://gist.githubusercontent.com/harukungxyz2004-alt/247e1a1929a3dd501f0baaa1ec7802e2/raw/main_script.lua";
+// ฟังก์ชันค้นหา URL จาก Key ที่ผู้ใช้ส่งมา
+function getScriptUrlByKey(userKey) {
+    for (const group of SCRIPT_GROUPS) {
+        if (group.keys.includes(userKey)) {
+            return group.url;
+        }
+    }
+    return null;
+}
 
-// 3. Endpoint สำหรับแจกตัว Loader ให้คนนำไปรันสั้นๆ 2 บรรทัด
+// 2. Endpoint สำหรับส่งตัว Loader
 app.get('/loader.lua', (req, res) => {
     const loaderCode = `
 local userKey = script_key or ""
@@ -41,7 +76,7 @@ if response and #response > 0 then
         print("3. โหลดสคริปต์สำเร็จ! กำลังเริ่มรันสคริปต์หลัก...")
         func()
     else
-        warn("❌ เกิด Syntax Error ในไฟล์ Gist ของคุณ: " .. tostring(err))
+        warn("❌ เกิด Syntax Error ในสคริปต์ของคุณ: " .. tostring(err))
     end
 else
     warn("❌ ไม่พบข้อมูลสคริปต์ตอบกลับจาก API")
@@ -51,13 +86,14 @@ end
     return res.status(200).send(loaderCode);
 });
 
-// 4. Endpoint สำหรับตรวจสอบ Key และส่งเนื้อหาสคริปต์หลักจาก Gist กลับไป
+// 3. Endpoint สำหรับเช็ค Key และส่งสคริปต์กลับ
 app.get('/get_script', async (req, res) => {
     const userKey = req.query.script_key;
+    const targetUrl = getScriptUrlByKey(userKey);
 
-    if (userKey && VALID_KEYS.includes(userKey)) {
+    if (targetUrl) {
         try {
-            const response = await axios.get(RAW_SCRIPT_URL);
+            const response = await axios.get(targetUrl);
             res.setHeader('Content-Type', 'text/plain; charset=utf-8');
             return res.status(200).send(response.data);
         } catch (error) {
