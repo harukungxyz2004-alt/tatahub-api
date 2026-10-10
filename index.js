@@ -8,7 +8,7 @@ app.use(express.json());
 
 // โครงสร้างข้อมูล Key และ URL
 const SCRIPT_KEYS = {
-    "tatahublootfree": "https://gist.githubusercontent.com/harukungxyz2004-alt/d1ff38f48b3c136944b1d0a12016cc7a/raw/2839b3469c72550d854682ed584722715635a577/main_script.lua",
+    "https://gist.githubusercontent.com/harukungxyz2004-alt/4bea44a1672ffaafe70589e47f9cc0c3/raw/af93e7608e5db9a8451f648c09ebe7e92e4b9b34/main_script.lua",
     "tatahubantfree": "https://gist.githubusercontent.com/harukungxyz2004-alt/658495f079b4fbbe4b66e3b8705fa920/raw/28192bc8d58bca12beaea97ea9430edf8a325008/main_script.lua"
 };
 
