@@ -1,6 +1,7 @@
 {
   "name": "tatahub-api",
   "version": "1.0.0",
+  "description": "API Gateway for TaTa Hub",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
